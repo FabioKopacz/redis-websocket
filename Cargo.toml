@@ -1,0 +1,33 @@
+[package]
+name = "bitcoin-grpc"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tokio = { version = "1.40", features = ["full"] }
+tonic = "0.12"
+prost = "0.13"
+
+tungstenite = "0.28.0"
+tokio-tungstenite = "0.28.0"
+futures-util = "0.3.0"
+redis = { version = "0.32.5", features = ["tokio-comp"] }
+r2d2 = { version = "*" }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+[build-dependencies]
+tonic-build = "0.12"
+protoc-bin-vendored = "3"
+
+[[bin]]
+name = "client"
+path = "src/client.rs"
+
+[[bin]]
+name = "websocket_server"
+path = "src/websocket_server.rs"
+
+[[bin]]
+name = "redis_service"
+path = "src/redis_service.rs"

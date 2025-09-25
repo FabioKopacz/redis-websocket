@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package bitcoin;
+
+service Bitcoin {
+  // Update the bitcoin price
+  rpc UpdatePrice (BitcoinRequest) returns (BitcoinReply);
+}
+
+message BitcoinRequest {
+  int32 a = 1;
+}
+
+message BitcoinReply {
+  int32 resultado = 1;
+}

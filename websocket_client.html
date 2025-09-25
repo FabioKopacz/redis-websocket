@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste WebSocket</title>
+</head>
+<body>
+    <h1>Teste do Servidor WebSocket</h1>
+    
+    <div>
+        <input type="text" id="messageInput" placeholder="Digite uma mensagem">
+        <button onclick="sendMessage()">Enviar</button>
+    </div>
+    
+    <div id="messages" style="margin-top: 20px; border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll;"></div>
+
+    <script>
+        let ws;
+        
+        function connect() {
+            ws = new WebSocket('ws://localhost:8080');
+            
+            ws.onopen = function() {
+                addMessage('Conectado ao servidor!');
+            };
+            
+            ws.onmessage = function(event) {
+                addMessage('Resposta: ' + event.data);
+            };
+            
+            ws.onclose = function() {
+                addMessage('Conexão fechada');
+            };
+            
+            ws.onerror = function(error) {
+                addMessage('Erro: ' + error);
+            };
+        }
+        
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value;
+            
+            if (ws && message) {
+                ws.send(message);
+                addMessage('Enviado: ' + message);
+                input.value = '';
+            }
+        }
+        
+        function addMessage(message) {
+            const messagesDiv = document.getElementById('messages');
+            messagesDiv.innerHTML += '<p>' + message + '</p>';
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+        
+        // Conectar automaticamente quando a página carregar
+        window.onload = connect;
+    </script>
+</body>
+</html>
