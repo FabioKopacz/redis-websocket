@@ -2,26 +2,7 @@ use futures_util::{SinkExt, StreamExt};
 use tokio::net::TcpListener;
 use tokio_tungstenite::tungstenite::Message;
 
-use redis::{Client, Commands, Connection, RedisResult};
-
-fn get_bitcoin_price(con: &mut Connection) -> redis::RedisResult<i32> {
-    let price: i32 = con.get("bitcoin")?;
-    Ok(price)
-}
-
-fn add_new_price(con: &mut Connection, price: i32) -> redis::RedisResult<()> {
-    println!("Saving price: {price}");
-
-    let _: () = con.set("bitcoin", price)?;
-
-    Ok(())
-}
-
-fn make_redis_instance() -> RedisResult<Connection> {
-    let client = Client::open("redis://127.0.0.1/")?;
-    let con = client.get_connection()?;
-    Ok(con)
-}
+use redis::{Client, Commands};
 
 #[tokio::main]
 async fn main() {
