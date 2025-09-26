@@ -52,8 +52,6 @@ async fn main() {
                 match message {
                     Ok(msg) => {
                         if msg.is_text() {
-                            let _: () = connection.set("bitcoin", 20).unwrap();
-
                             let price: i32 = connection.get("bitcoin").unwrap();
 
                             println!("{price}");

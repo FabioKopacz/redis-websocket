@@ -21,6 +21,10 @@ tonic-build = "0.12"
 protoc-bin-vendored = "3"
 
 [[bin]]
+name = "grpc"
+path = "src/main.rs"
+
+[[bin]]
 name = "client"
 path = "src/client.rs"
 
